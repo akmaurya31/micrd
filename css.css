@@ -1,0 +1,359 @@
+/* ==========================================================================
+   1. General Reset & Layout Setup
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+}
+
+/* ==========================================================================
+   2. Main Header Styling
+   ========================================================================== */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 8px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Three-line Burger Button (Hidden on Desktop) */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #4a2e2b;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.gov-logo img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+}
+
+.portal-titles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.layer-icon {
+    font-size: 24px;
+    color: #003366;
+}
+
+.titles-text h1 {
+    font-size: 19px;
+    color: #002e6e;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.sub-title {
+    font-size: 14px;
+    color: #e65100;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+/* Header Right Area */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.notification-badge {
+    position: relative;
+    background-color: #00b0ff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.badge-count {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-role {
+    font-size: 11px;
+    color: #666;
+}
+
+.user-avatar {
+    background-color: #b0bec5;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+/* ==========================================================================
+   3. Navigation Bar Styling (Desktop Mode)
+   ========================================================================== */
+.navbar {
+    background-color: #4a2e2b; /* डार्क चॉकलेट कलर */
+    width: 100%;
+}
+
+.sidebar-mobile-header {
+    display: none; /* Desktop पर हाइड रहेगा */
+}
+
+.menu-list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+.menu-item > a {
+    display: block;
+    padding: 14px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: background 0.3s ease;
+}
+
+.menu-item i {
+    margin-right: 6px;
+}
+
+.menu-item .arrow {
+    margin-left: 4px;
+    font-size: 11px;
+    transition: transform 0.3s ease;
+}
+
+/* Color Accents */
+.instructions > a { background-color: #00b0ff; }
+.instructions > a:hover { background-color: #0091ea; }
+
+.dashboard > a { background-color: #d84315; }
+.dashboard > a:hover { background-color: #bf360c; }
+
+.menu-item:not(.instructions):not(.dashboard) > a:hover {
+    background-color: #3d2422;
+}
+
+/* Desktop Dropdown Sub-menu */
+.dropdown {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    display: none; 
+    list-style: none;
+    z-index: 100;
+    border-top: 3px solid #d84315;
+}
+
+.submenu li a {
+    display: block;
+    padding: 12px 16px;
+    color: #333333;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background 0.2s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.submenu li a:hover {
+    background-color: #f5f5f5;
+    color: #d84315;
+}
+
+/* Desktop Hover Effect to Show Sub-menu */
+@media (min-width: 769px) {
+    .dropdown:hover .submenu {
+        display: block;
+    }
+}
+
+/* ==========================================================================
+   4. Mobile Responsive Design & Sidebar Logic (Max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Header Changes */
+    .mobile-menu-btn {
+        display: block; /* बर्गर बटन दिखने लगेगा */
+    }
+    
+    .titles-text h1 {
+        font-size: 14px; /* मोबाइल पर हेडर टेक्स्ट छोटा होगा */
+    }
+    
+    .sub-title {
+        font-size: 11px;
+    }
+    
+    .gov-logo img {
+        height: 45px; /* छोटा लोगो */
+    }
+    
+    .layer-icon, .user-details {
+        display: none; /* मोबाइल पर जगह बचाने के लिए अनचाहे एलिमेंट्स हाइड */
+    }
+
+    /* Navbar Converts into Left Sidebar */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: -280px; /* डिफ़ॉल्ट रूप से लेफ्ट में छुपा रहेगा */
+        width: 280px;
+        height: 100vh;
+        z-index: 9999;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.25);
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* साइडबार स्क्रॉलिंग फीचर्स */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* JavaScript द्वारा एक्टिव होने पर साइडबार बाहर आएगा */
+    .navbar.active {
+        left: 0;
+    }
+
+    /* Mobile Sidebar Header */
+    .sidebar-mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 15px;
+        background-color: #3d2422;
+        color: white;
+        font-weight: bold;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .close-sidebar-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Scrollable Menu Items Section inside Sidebar */
+    .menu-list {
+        display: block; /* फ्लेक्स से ब्लॉक लेआउट */
+        overflow-y: auto; /* स्क्रीन फुल होने पर ऑटोमैटिक स्क्रॉल बार आ जाएगा */
+        flex-grow: 1;
+        padding-top: 10px;
+        padding-bottom: 30px;
+    }
+
+    /* Custom Custom Scrollbar for Menu */
+    .menu-list::-webkit-scrollbar { width: 5px; }
+    .menu-list::-webkit-scrollbar-track { background: #3d2422; }
+    .menu-list::-webkit-scrollbar-thumb { background: #00b0ff; border-radius: 10px; }
+
+    .menu-item > a {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .instructions > a, .dashboard > a {
+        margin: 5px 10px;
+        border-radius: 4px;
+    }
+
+    /* Mobile Submenu Behavior (Click to Expand) */
+    .submenu {
+        position: static;
+        width: 100%;
+        background-color: #3d2422;
+        box-shadow: none;
+        border-top: none;
+        max-height: 0; /* बंद होने पर 0 हाईट */
+        overflow: hidden;
+        display: block; /* JS कंट्रोल के लिए डिस्प्ले ब्लॉक रहेगा */
+        transition: max-height 0.3s ease-out;
+    }
+
+    .submenu li a {
+        color: #dcdcdc;
+        padding: 12px 16px 12px 45px;
+        border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    /* JavaScript द्वारा ओपन क्लास ऐड होने पर एक्सपैंड */
+    .menu-item.dropdown.open .submenu {
+        max-height: 300px; /* सब-मेन्यू ओपन होने पर मैक्सिमम हाइट */
+    }
+
+    .menu-item.dropdown.open .arrow {
+        transform: rotate(180deg); /* एरो उल्टा घूम जाएगा */
+    }
+}
+
+/* Dark Background Overlay Behind Sidebar on Mobile Screens */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}

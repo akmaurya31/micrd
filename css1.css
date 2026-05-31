@@ -1,0 +1,250 @@
+/* ==========================================================================
+   1. General Layout Setup
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   2. Sidebar Styling (With Smart Scrolling & Fixed Brand Header)
+   ========================================================================== */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #4a2e2b; /* Portal Ka Dark Chocolate Brown Color */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    
+    /* स्क्रॉल बार मैनेज करने के लिए फ्लेक्सबॉक्स लेआउट */
+    display: flex;
+    flex-direction: column; 
+    overflow: hidden; 
+}
+
+/* Sidebar Header / Logo Area (यह हमेशा अपनी जगह पर फिक्स रहेगा) */
+.sidebar-brand {
+    padding: 20px 15px;
+    background-color: #3d2422; /* Thoda aur dark matching color */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    flex-shrink: 0; /* लोगो एरिया को सिकुड़ने से रोकेगा */
+}
+
+.brand-icon {
+    font-size: 22px;
+    color: #00b0ff; /* Portal Sky Blue Accent */
+}
+
+.brand-text h3 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.brand-text p {
+    color: #e65100; /* Orange Text */
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+/* ==========================================================================
+   3. Sidebar Navigation Links & Scrollbar Customization
+   ========================================================================== */
+.sidebar-nav {
+    padding-top: 15px;
+    padding-bottom: 30px; /* नीचे थोड़ी एक्स्ट्रा स्पेस ताकि आखरी आइटम न छुपे */
+    overflow-y: auto;    /* स्क्रीन फुल होने पर ऑटोमैटिक स्क्रॉल बार आ जाएगा */
+    flex-grow: 1;        /* बची हुई पूरी जगह यह कंटेनर ले लेगा */
+}
+
+/* --- कस्टम स्क्रॉल बार डिजाइन (Chrome, Safari, Edge के लिए) --- */
+.sidebar-nav::-webkit-scrollbar {
+    width: 6px; /* स्क्रॉल बार की चौड़ाई */
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+    background: #3d2422; /* स्क्रॉल ट्रैक का बैकग्राउंड */
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: #00b0ff; /* स्क्रॉल बार हैंडल का कलर (Sky Blue) */
+    border-radius: 10px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: #0091ea;
+}
+
+/* --- नेविगेशन लिस्ट स्टाइल्स --- */
+.nav-list {
+    list-style: none;
+}
+
+.nav-item a {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.nav-item .icon {
+    width: 25px;
+    font-size: 16px;
+}
+
+/* Instructions & Dashboard बटन हाइलाइट्स */
+.instructions-link > a {
+    background-color: #00b0ff; /* Sky Blue */
+    margin: 5px 10px;
+    border-radius: 4px;
+}
+.instructions-link > a:hover {
+    background-color: #0091ea;
+}
+
+.dashboard-link > a {
+    background-color: #d84315; /* Orange */
+    margin: 5px 10px;
+    border-radius: 4px;
+}
+.dashboard-link > a:hover {
+    background-color: #bf360c;
+}
+
+/* बाकी नॉर्मल मेन्यू आइटम्स का होवर इफ़ेक्ट */
+.nav-item:not(.instructions-link):not(.dashboard-link) > a:hover {
+    background-color: #3d2422;
+}
+
+/* ड्रॉपडाउन तीर (Arrow) रोटेशन सेटअप */
+.nav-item .arrow {
+    margin-left: auto;
+    font-size: 11px;
+    transition: transform 0.3s ease;
+}
+
+/* ==========================================================================
+   4. Sub-menu Styling (Expandable via JavaScript)
+   ========================================================================== */
+.sidebar-submenu {
+    list-style: none;
+    background-color: #3d2422;
+    max-height: 0; /* डिफ़ॉल्ट रूप से छुपा रहेगा */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.sidebar-submenu li a {
+    padding: 10px 20px 10px 45px;
+    font-size: 12.5px;
+    font-weight: normal;
+    color: #dcdcdc;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-submenu li a:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: #00b0ff;
+    border-left: 3px solid #00b0ff;
+}
+
+/* जब ड्रॉपडाउन एक्टिव (Open) होगा */
+.nav-item.has-dropdown.open .sidebar-submenu {
+    max-height: 300px; /* सब-मेन्यू खुलने पर मैक्सिमम हाइट */
+}
+
+.nav-item.has-dropdown.open .arrow {
+    transform: rotate(180deg); /* तीर ऊपर की तरफ घूम जाएगा */
+}
+
+/* ==========================================================================
+   5. Main Content Area Adjustments
+   ========================================================================== */
+.header-content {
+    margin-left: 260px; /* डेस्कटॉप पर साइडबार के बराबर मार्जिन */
+    transition: all 0.3s ease;
+}
+
+.main-content {
+    margin-left: 260px; /* डेस्कटॉप पर साइडबार के बराबर मार्जिन */
+    padding: 30px;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   6. Mobile Header Bar (Only active on Mobile Screen)
+   ========================================================================== */
+.mobile-header {
+    background-color: #4a2e2b;
+    color: white;
+    padding: 12px 20px;
+    display: none; /* डेस्कटॉप पर छुपा रहेगा */
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.mobile-logo-text {
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   7. Responsive Media Queries (Mobile/Tablet View)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header-content {
+        margin-left: 0 !important;
+    }
+    
+    .sidebar {
+        left: -260px; /* मोबाइल पर साइडबार स्क्रीन से लेफ्ट में छुप जाएगा */
+    }
+
+    /* JavaScript जब 'active' क्लास जोड़ेगा तो साइडबार बाहर आएगा */
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0; /* मोबाइल पर फुल स्क्रीन स्पेस */
+        padding: 20px;
+    }
+
+    .mobile-header {
+        display: flex; /* मोबाइल स्क्रीन पर ऑटोमैटिक दिखने लगेगा */
+    }
+}
