@@ -5,17 +5,27 @@ include('includes/sidebar.php');
 include('includes/top-header.php'); 
 ?>
 
+
 <!-- ================= MAIN CORE CONTENT CARD ================= -->
 <!-- यहाँ overflow-visible किया है ताकि अंदर की टेबल स्क्रॉल हो सके -->
 <div class="bg-white rounded-lg shadow border border-gray-200 overflow-visible w-full block">
     
     <!-- Tab Name Header -->
-    <div class="flex items-center">
-        <div class="bg-white px-6 py-3 font-semibold text-gray-800 border-t-4 border-orange-500 rounded-t-lg text-sm z-10 shadow-sm">
-            Electrification Data
-        </div>
-        <div class="flex-1 bg-gray-50 py-5 border-b border-gray-200"></div>
-    </div>
+ <div class="flex items-center">
+  
+    
+    
+    
+    <a href="vendor-ins.php" class="bg-gray-100 px-6 py-3 font-medium text-gray-500 border-b border-gray-200 rounded-t-lg text-sm z-0 hover:bg-gray-50 hover:text-gray-700 no-underline transition-all">
+       Instalation Stats 
+    </a>
+
+     <a href="vendor-data.php" class="bg-white px-6 py-3 font-semibold text-gray-900 border-t-4 border-orange-500 rounded-t-lg text-sm z-10 shadow-sm no-underline transition-all">
+       Instalation Data
+    </a>
+    
+    <div class="flex-1 bg-gray-50 py-5 border-b border-gray-200"></div>
+</div>
 
     <div class="p-4 md:p-6 w-full block">
         <!-- Breadcrumbs & Control Top Buttons -->
@@ -23,9 +33,9 @@ include('includes/top-header.php');
             <div class="text-sm font-medium">
                 <span class="text-orange-500 hover:underline cursor-pointer">Dashboard</span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-orange-500 hover:underline cursor-pointer">  <?php echo isset($_SESSION['user_type']) ? ucfirst($_SESSION['user_type']) : 'Coordinator'; ?> </span>
+                <span class="text-orange-500 hover:underline cursor-pointer">Tab</span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-gray-600">  Electrification Data</span>
+                <span class="text-gray-600">Instalation </span>
             </div>
             
             <div class="flex items-center gap-2 self-end md:self-auto">
@@ -34,7 +44,7 @@ include('includes/top-header.php');
                     <i class="fa-solid fa-caret-down text-[10px]"></i>
                 </button>
                 <button id="openDrawerBtn" class="bg-[#0056b3] hover:bg-[#004085] text-white px-4 py-1.5 rounded text-sm font-medium flex items-center gap-1.5 transition shadow cursor-pointer">
-                    <i class="fa-solid fa-plus text-xs"></i> Action
+                    <i class="fa-solid fa-plus text-xs"></i> Add
                 </button>
             </div>
         </div>
@@ -65,12 +75,15 @@ include('includes/top-header.php');
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 60px;" data-column="0">S.No.</th>
                         <th class="p-3 border-r border-gray-300 cursor-pointer" style="width: 250px;" data-column="1">School Name</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="2">District Name</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 140px;" data-column="3">Class Rooms</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 150px;" data-column="4">Calling Date</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 140px;" data-column="3">IFP SN</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 140px;" data-column="3">UPS SN</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 140px;" data-column="3">Accessories SN</th>
+
+
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 150px;" data-column="4">Type</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="5">File Relevant</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="6"> Date</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="7">Comment</th>
-                        <th class="p-3 text-center text-[#b45309]" style="width: 90px;">Action</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="6">Status</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="7">Remark</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody" class="text-gray-700 divide-y divide-gray-200 bg-white">
@@ -90,150 +103,189 @@ include('includes/top-header.php');
 <!-- ================= BACKGROUND DARK OVERLAY ================= -->
 <div id="drawerOverlay" class="fixed inset-0 bg-black/40 hidden z-40 transition-opacity duration-300 opacity-0"></div>
 
- <div id="sideDrawer" class="fixed top-0 right-0 h-full w-full max-w-[550px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+<!-- ================= SIDE DRAWER MODAL FORM ================= -->
+<div id="sideDrawer" class="fixed top-0 right-0 h-full w-full max-w-[550px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
     <div class="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-gray-200">
-        <h2 class="text-[#1e3e62] font-semibold text-lg">School Electrification Status</h2>
+        <h2 class="text-[#1e3e62] font-semibold text-lg">Create Instlation</h2>
         <button id="closeDrawerBtn" class="text-gray-400 hover:text-gray-600 text-xl font-medium focus:outline-none cursor-pointer">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
     
-    <form id="electrificationForm" enctype="multipart/form-data" class="flex-1 overflow-y-auto p-6 space-y-4 text-sm text-gray-700">
+   <form id="readinessForm" enctype="multipart/form-data" class="flex-1 overflow-y-auto p-6 space-y-4 text-sm text-gray-700">
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+            <label class="block font-medium mb-1">Search UDISE CODE <span class="text-red-500">*</span></label>
+            <input type="text" id="udiseCode" name="udise_code" required class="w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400" placeholder="Enter UDISE Code">
+        </div>
+        <div>
+            <label class="block font-medium mb-1">School Name</label>
+            <div id="schoolNameLabel" class="w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-500 min-h-[38px] flex items-center">
+                -- Enter UDISE Code First --
+            </div>
+            <input type="hidden" id="schoolNameHidden" name="school_name">
+        </div>
+    </div>
+
+    <div class="space-y-4">
+        <div>
+            <label class="block font-medium mb-1">IFP Serial Number <span class="text-red-500">*</span></label>
+            <input type="text" id="ifpSerialNumber" name="ifp_serial_number" required class="w-full border border-blue-100 bg-white rounded px-3 py-2 focus:outline-none focus:border-blue-400" placeholder="Enter IFP Serial No.">
+        </div>
+        <div>
+            <label class="block font-medium mb-1">UPS Serial Number <span class="text-red-500">*</span></label>
+            <input type="text" id="upsSerialNumber" name="ups_serial_number" required class="w-full border border-blue-100 bg-white rounded px-3 py-2 focus:outline-none focus:border-blue-400" placeholder="Enter UPS Serial No.">
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Accessories Serial Number <span class="text-red-500">*</span></label>
+            <input type="text" id="accessoriesSerialNumber" name="accessories_serial_number" required class="w-full border border-blue-100 bg-white rounded px-3 py-2 focus:outline-none focus:border-blue-400" placeholder="Enter Accessories Serial No.">
+        </div>
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Attach File</label>
+        <div class="flex items-center border border-blue-100 bg-[#f4f9fd] rounded overflow-hidden max-w-md">
+            <label class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 text-xs font-medium cursor-pointer border-r border-gray-300 whitespace-nowrap">
+                Choose File <input type="file" id="fileInput" name="relevant_file" class="hidden">
+            </label>
+            <span id="fileName" class="px-3 text-gray-400 text-xs truncate">No file chosen</span>
+        </div>
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Remark <span class="text-red-500">*</span></label>
+        <textarea name="remark" rows="3" required class="w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400 resize-none" placeholder="Enter your remarks here..."></textarea>
+    </div>
+
+    <div class="pt-4">
+        <button type="submit" class="bg-[#004e92] hover:bg-[#00396b] text-white font-medium px-6 py-2 rounded text-xs tracking-wide shadow transition-all cursor-pointer">Submit</button>
+    </div>
+</form>
+
+<script>
+    // 1. File Input Name Logic
+    document.getElementById('fileInput').addEventListener('change', function() {
+        const fileName = this.files[0] ? this.files[0].name : "No file chosen";
+        const nameSpan = document.getElementById('fileName');
+        nameSpan.textContent = fileName;
+        if(this.files[0]) {
+            nameSpan.classList.remove('text-gray-400');
+            nameSpan.classList.add('text-gray-700');
+        } else {
+            nameSpan.classList.remove('text-gray-700');
+            nameSpan.classList.add('text-gray-400');
+        }
+    });
+
+    // 2. UDISE Code Input Logic (Updates Hidden Field)
+    document.getElementById('udiseCode').addEventListener('input', function() {
+        const codeValue = this.value.trim();
+        const labelEl = document.getElementById('schoolNameLabel');
+        const hiddenInput = document.getElementById('schoolNameHidden');
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-                <label class="block font-medium mb-1">Search UDISE CODE <span class="text-red-500">*</span></label>
-                <input type="text" id="udiseCode" name="udise_code" required class="w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400" placeholder="Enter UDISE Code">
-            </div>
-            <div>
-                <label class="block font-medium mb-1">School Name</label>
-                <div id="schoolNameLabel" class="w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-500 min-h-[38px] flex items-center">
-                    -- Enter UDISE Code --
-                </div>
-                <input type="hidden" id="schoolNameHidden" name="school_name">
-            </div>
-        </div>
-
-        <div>
-            <label class="block font-medium mb-1">Electrification Status <span class="text-red-500">*</span></label>
-            <div class="space-y-2 mt-2">
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Pending Vendor Side" required class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">As per HM confirmation Electrification Pending Vendor Side</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Completed As per HM" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">Electrification Completed As per HM</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Incomplete Electrification" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">Incomplete Electrification</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Electrification Pending" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">Electrification Pending</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="HM Confirmation Pending" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">HM Confirmation Pending</span>
-                </label>
-            </div>
-        </div>
-
-        <div>
-            <label class="block font-medium mb-1">Upload Relevant File</label>
-            <div class="flex items-center border border-blue-100 bg-[#f4f9fd] rounded overflow-hidden max-w-md">
-                <label class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 text-xs font-medium cursor-pointer border-r border-gray-300 whitespace-nowrap">
-                    Choose File <input type="file" id="fileInput" name="relevant_file" class="hidden">
-                </label>
-                <span id="fileName" class="px-3 text-gray-400 text-xs truncate">No file chosen</span>
-            </div>
-        </div>
-
-        <div>
-            <label class="block font-medium mb-1">Remark <span class="text-red-500">*</span></label>
-            <textarea name="remark" rows="3" required class="w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400 resize-none" placeholder="Enter your remarks here..."></textarea>
-        </div>
-
-        <div class="pt-4">
-            <button type="submit" class="bg-[#004e92] hover:bg-[#00396b] text-white font-medium px-6 py-2 rounded text-xs tracking-wide shadow transition-all cursor-pointer">Submit</button>
-        </div>
-    </form>
+        if (codeValue.length >= 4) {
+            const simulatedSchoolName = "Government High School (Code: " + codeValue + ")";
+            labelEl.textContent = simulatedSchoolName;
+            labelEl.classList.remove('text-gray-500');
+            labelEl.classList.add('text-gray-900');
+            hiddenInput.value = simulatedSchoolName;
+        } else {
+            labelEl.textContent = "-- Enter UDISE Code First --";
+            labelEl.classList.remove('text-gray-900');
+            labelEl.classList.add('text-gray-500');
+            hiddenInput.value = "";
+        }
+    });
+</script>
 </div>
 
 <script>
-// 1. API से UDISE Code के आधार पर Live School Name खोजना
+// 1. UDISE Code के आधार पर स्कूल का नाम खोजना (Mock Data Logic)
+const mockSchools = {
+    "09010100101": "Primary School Navpura",
+    "09010100102": "Upper Primary School Kalyanpur",
+    "09010100103": "Model School Sector 62"
+};
+
 document.getElementById('udiseCode').addEventListener('input', function() {
     const code = this.value.trim();
     const label = document.getElementById('schoolNameLabel');
     const hiddenInput = document.getElementById('schoolNameHidden');
     
-    // जब UDISE Code की लंबाई 8 या उससे अधिक हो, तभी API कॉल करें (सर्वर लोड कम करने के लिए)
-    if(code.length >= 8) {
-        label.textContent = "Searching...";
-        label.className = "w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-blue-500 min-h-[38px] flex items-center";
-
-        fetch(`electrification_api.php?action=search_udise&udise_code=${code}`)
-        .then(response => response.json())
-        .then(data => {
-            if(data.status === 'success') {
-                label.textContent = data.school_name;
-                label.className = "w-full bg-green-50 border border-green-200 rounded px-3 py-2 text-green-700 min-h-[38px] flex items-center font-medium";
-                hiddenInput.value = data.school_name;
-            } else {
-                label.textContent = "School Not Found!";
-                label.className = "w-full bg-red-50 border border-red-200 rounded px-3 py-2 text-red-600 min-h-[38px] flex items-center";
-                hiddenInput.value = "";
-            }
-        })
-        .catch(err => {
-            label.textContent = "Error fetching data";
-            label.className = "w-full bg-red-50 border border-red-200 rounded px-3 py-2 text-red-600 min-h-[38px] flex items-center";
-        });
+    if(mockSchools[code]) {
+        label.textContent = mockSchools[code];
+        label.classList.remove('text-gray-400', 'text-red-500');
+        label.classList.add('text-gray-800');
+        hiddenInput.value = mockSchools[code];
+    } else if(code.length > 5) {
+        label.textContent = "School Not Found!";
+        label.classList.add('text-red-500');
+        hiddenInput.value = "";
     } else {
-        label.textContent = "-- Enter UDISE Code --";
-        label.className = "w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-500 min-h-[38px] flex items-center";
+        label.textContent = "-- Enter UDISE Code First --";
+        label.classList.remove('text-red-500');
+        label.classList.add('text-gray-500');
         hiddenInput.value = "";
     }
 });
 
-// 2. File Input का नाम अपडेट करने के लिए
-document.getElementById('fileInput').addEventListener('change', function() {
-    const name = this.files[0] ? this.files[0].name : "No file chosen";
-    document.getElementById('fileName').textContent = name;
+// 2. Type Dropdown के चेंज होने पर SNR Radio Button को दिखाना/छिपाना
+document.getElementById('userType').addEventListener('change', function() {
+    const snrOption = document.getElementById('snrOption');
+    if(this.value === 'HM') {
+        snrOption.classList.remove('hidden');
+        snrOption.classList.add('inline-flex');
+    } else {
+        snrOption.classList.remove('inline-flex');
+        snrOption.classList.add('hidden');
+        // अगर SNR पहले से सिलेक्टेड था और रोल बदल दिया, तो रेडियो रीसेट करें
+        const snrRadio = snrOption.querySelector('input');
+        if(snrRadio.checked) {
+            snrRadio.checked = false;
+        }
+    }
 });
 
-// 3. Form Submit करके Data Save करना
-document.getElementById('electrificationForm').addEventListener('submit', function(e) {
+// 3. File Input का नाम दिखाने के लिए
+document.getElementById('fileInput').addEventListener('change', function() {
+    const fileName = this.files[0] ? this.files[0].name : "No file chosen";
+    document.getElementById('fileName').textContent = fileName;
+});
+
+// 4. Form Submit करके API पर डेटा भेजना (AJAX / Fetch)
+document.getElementById('readinessForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // बेसिक वैलिडेशन (क्या UDISE मैच हुआ है?)
     if(!document.getElementById('schoolNameHidden').value) {
-        alert("Please enter a valid and matching UDISE Code first.");
+        alert("Please enter a valid UDISE Code first.");
         return;
     }
 
     const formData = new FormData(this);
-    formData.append('action', 'save_data');
 
-    fetch('electrification_api.php', {
+    // PHP Backend API को कॉल करना
+    fetch('save_readiness.php', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
         if(data.status === 'success') {
-            alert('Electrification status saved successfully!');
-            document.getElementById('electrificationForm').reset();
-            document.getElementById('schoolNameLabel').textContent = "-- Enter UDISE Code --";
-            document.getElementById('schoolNameLabel').className = "w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-500 min-h-[38px] flex items-center";
+            alert('Data saved successfully!');
+            document.getElementById('readinessForm').reset();
+            document.getElementById('schoolNameLabel').textContent = "-- Enter UDISE Code First --";
+            document.getElementById('snrOption').classList.add('hidden');
             document.getElementById('fileName').textContent = "No file chosen";
+            // यहाँ आप Drawer बंद करने का लॉजिक लिख सकते हैं
         } else {
             alert('Error: ' + data.message);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Something went wrong while saving.');
+        alert('Something went wrong!');
     });
 });
 </script>
@@ -241,11 +293,11 @@ document.getElementById('electrificationForm').addEventListener('submit', functi
 <!-- ================= INTERACTIVE PAGE LOGIC SCRIPT ================= -->
 <script>
     const tableData = [
-        { id: 1, school: "COMPOSIT SCHOOL BELWA HASANPUR\n(9732202502)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "16/04/2026", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR , UTTARPRADESH", approved: "NA", remark: "NA", by: "SI" },
-        { id: 2, school: "COMPOSIT SCHOOL PURE LANGDA\n(9732201505)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "16/04/2026", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR", approved: "NA", remark: "NA", by: "SI" },
-        { id: 3, school: "GOVT JUNIOR HIGH SCHOOL\n(9732201999)", district: "LUCKNOW", classroom: "Smart Classroom - 2", scheduled: "18/04/2026", file: "NA", date: "12/02/2026", comment: "GOOD", venue: "DIET LUCKNOW CAMPUS", approved: "YES", remark: "APPROVED", by: "MI" },
-        { id: 4, school: "PRIMARY SCHOOL RAMPUR\n(9732203444)", district: "KANPUR", classroom: "Smart Classroom - 1", scheduled: "20/04/2026", file: "NA", date: "15/02/2026", comment: "OK", venue: "DIET KANPUR NEAR STATION", approved: "NA", remark: "NA", by: "SI" },
-        { id: 5, school: "COMPOSIT SCHOOL GYANPUR\n(9732205555)", district: "VARANASI", classroom: "Smart Classroom - 3", scheduled: "22/04/2026", file: "NA", date: "18/02/2026", comment: "EXCELLENT", venue: "DIET VARANASI", approved: "YES", remark: "DONE", by: "AI" }
+        { id: 1, school: "COMPOSIT SCHOOL BELWA HASANPUR\n(9732202502)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "1111", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR , UTTARPRADESH", approved: "NA", remark: "NA", by: "SI" },
+        { id: 2, school: "COMPOSIT SCHOOL PURE LANGDA\n(9732201505)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "3333", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR", approved: "NA", remark: "NA", by: "SI" },
+        { id: 3, school: "GOVT JUNIOR HIGH SCHOOL\n(9732201999)", district: "LUCKNOW", classroom: "Smart Classroom - 2", scheduled: "5555", file: "NA", date: "12/02/2026", comment: "GOOD", venue: "DIET LUCKNOW CAMPUS", approved: "YES", remark: "APPROVED", by: "MI" },
+        { id: 4, school: "PRIMARY SCHOOL RAMPUR\n(9732203444)", district: "KANPUR", classroom: "Smart Classroom - 1", scheduled: "HM", file: "NA", date: "15/02/2026", comment: "OK", venue: "DIET KANPUR NEAR STATION", approved: "NA", remark: "NA", by: "SI" },
+        { id: 5, school: "COMPOSIT SCHOOL GYANPUR\n(9732205555)", district: "VARANASI", classroom: "Smart Classroom - 3", scheduled: "BSA", file: "NA", date: "18/02/2026", comment: "EXCELLENT", venue: "DIET VARANASI", approved: "YES", remark: "DONE", by: "AI" }
     ];
 
     let filteredData = [...tableData];

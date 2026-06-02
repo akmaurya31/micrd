@@ -5,17 +5,25 @@ include('includes/sidebar.php');
 include('includes/top-header.php'); 
 ?>
 
+
 <!-- ================= MAIN CORE CONTENT CARD ================= -->
 <!-- यहाँ overflow-visible किया है ताकि अंदर की टेबल स्क्रॉल हो सके -->
 <div class="bg-white rounded-lg shadow border border-gray-200 overflow-visible w-full block">
     
     <!-- Tab Name Header -->
-    <div class="flex items-center">
-        <div class="bg-white px-6 py-3 font-semibold text-gray-800 border-t-4 border-orange-500 rounded-t-lg text-sm z-10 shadow-sm">
-            Schedule Equipment Operation Training
-        </div>
-        <div class="flex-1 bg-gray-50 py-5 border-b border-gray-200"></div>
-    </div>
+ <div class="flex items-center">
+  
+    
+    <a href="siteread-stats.php" class="bg-gray-100 px-6 py-3 font-medium text-gray-500 border-b border-gray-200 rounded-t-lg text-sm z-0 hover:bg-gray-50 hover:text-gray-700 no-underline transition-all">
+         Statistic Site Readiness
+    </a>
+
+      <a href="siteread.php" class="bg-white px-6 py-3 font-semibold text-gray-900 border-t-4 border-orange-500 rounded-t-lg text-sm z-10 shadow-sm no-underline transition-all">
+       Site Readiness
+    </a>
+    
+    <div class="flex-1 bg-gray-50 py-5 border-b border-gray-200"></div>
+</div>
 
     <div class="p-4 md:p-6 w-full block">
         <!-- Breadcrumbs & Control Top Buttons -->
@@ -23,9 +31,9 @@ include('includes/top-header.php');
             <div class="text-sm font-medium">
                 <span class="text-orange-500 hover:underline cursor-pointer">Dashboard</span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-orange-500 hover:underline cursor-pointer">Transactions</span>
+                <span class="text-orange-500 hover:underline cursor-pointer">Tab</span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-gray-600">Schedule Equipment Operation Training</span>
+                <span class="text-gray-600">Site Readiness</span>
             </div>
             
             <div class="flex items-center gap-2 self-end md:self-auto">
@@ -34,7 +42,7 @@ include('includes/top-header.php');
                     <i class="fa-solid fa-caret-down text-[10px]"></i>
                 </button>
                 <button id="openDrawerBtn" class="bg-[#0056b3] hover:bg-[#004085] text-white px-4 py-1.5 rounded text-sm font-medium flex items-center gap-1.5 transition shadow cursor-pointer">
-                    <i class="fa-solid fa-plus text-xs"></i> Schedule
+                    <i class="fa-solid fa-plus text-xs"></i> Add
                 </button>
             </div>
         </div>
@@ -66,16 +74,10 @@ include('includes/top-header.php');
                         <th class="p-3 border-r border-gray-300 cursor-pointer" style="width: 250px;" data-column="1">School Name</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="2">District Name</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 140px;" data-column="3">Class Rooms</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 150px;" data-column="4">Training Scheduled On</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 150px;" data-column="4">Type</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="5">File Relevant</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="6">Training Date</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="7">Comment</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 260px;" data-column="8">Training Venue</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="9">Approved UPLC</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="10">Remark UPLC</th>
-                        <th class="p-3 border-r border-gray-300 text-center" style="width: 120px;">Uploaded Photos</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="12">Uploaded By</th>
-                        <th class="p-3 text-center text-[#b45309]" style="width: 90px;">Action</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="6">Status</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="7">Remark</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody" class="text-gray-700 divide-y divide-gray-200 bg-white">
@@ -262,11 +264,11 @@ document.getElementById('readinessForm').addEventListener('submit', function(e) 
 <!-- ================= INTERACTIVE PAGE LOGIC SCRIPT ================= -->
 <script>
     const tableData = [
-        { id: 1, school: "COMPOSIT SCHOOL BELWA HASANPUR\n(9732202502)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "16/04/2026", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR , UTTARPRADESH", approved: "NA", remark: "NA", by: "SI" },
-        { id: 2, school: "COMPOSIT SCHOOL PURE LANGDA\n(9732201505)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "16/04/2026", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR", approved: "NA", remark: "NA", by: "SI" },
-        { id: 3, school: "GOVT JUNIOR HIGH SCHOOL\n(9732201999)", district: "LUCKNOW", classroom: "Smart Classroom - 2", scheduled: "18/04/2026", file: "NA", date: "12/02/2026", comment: "GOOD", venue: "DIET LUCKNOW CAMPUS", approved: "YES", remark: "APPROVED", by: "MI" },
-        { id: 4, school: "PRIMARY SCHOOL RAMPUR\n(9732203444)", district: "KANPUR", classroom: "Smart Classroom - 1", scheduled: "20/04/2026", file: "NA", date: "15/02/2026", comment: "OK", venue: "DIET KANPUR NEAR STATION", approved: "NA", remark: "NA", by: "SI" },
-        { id: 5, school: "COMPOSIT SCHOOL GYANPUR\n(9732205555)", district: "VARANASI", classroom: "Smart Classroom - 3", scheduled: "22/04/2026", file: "NA", date: "18/02/2026", comment: "EXCELLENT", venue: "DIET VARANASI", approved: "YES", remark: "DONE", by: "AI" }
+        { id: 1, school: "COMPOSIT SCHOOL BELWA HASANPUR\n(9732202502)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "HM", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR , UTTARPRADESH", approved: "NA", remark: "NA", by: "SI" },
+        { id: 2, school: "COMPOSIT SCHOOL PURE LANGDA\n(9732201505)", district: "AMETHI", classroom: "Smart Classroom - 1", scheduled: "BSA", file: "NA", date: "10/02/2026", comment: "OK", venue: "DIET VIVEKNAGAR NEAR RAILWAY STATION SULTANPUR", approved: "NA", remark: "NA", by: "SI" },
+        { id: 3, school: "GOVT JUNIOR HIGH SCHOOL\n(9732201999)", district: "LUCKNOW", classroom: "Smart Classroom - 2", scheduled: "BEO", file: "NA", date: "12/02/2026", comment: "GOOD", venue: "DIET LUCKNOW CAMPUS", approved: "YES", remark: "APPROVED", by: "MI" },
+        { id: 4, school: "PRIMARY SCHOOL RAMPUR\n(9732203444)", district: "KANPUR", classroom: "Smart Classroom - 1", scheduled: "HM", file: "NA", date: "15/02/2026", comment: "OK", venue: "DIET KANPUR NEAR STATION", approved: "NA", remark: "NA", by: "SI" },
+        { id: 5, school: "COMPOSIT SCHOOL GYANPUR\n(9732205555)", district: "VARANASI", classroom: "Smart Classroom - 3", scheduled: "BSA", file: "NA", date: "18/02/2026", comment: "EXCELLENT", venue: "DIET VARANASI", approved: "YES", remark: "DONE", by: "AI" }
     ];
 
     let filteredData = [...tableData];
@@ -304,14 +306,6 @@ document.getElementById('readinessForm').addEventListener('submit', function(e) 
                 <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.file}</td>
                 <td class="p-3 border-r border-gray-200 text-center">${row.date}</td>
                 <td class="p-3 border-r border-gray-200 text-center font-medium">${row.comment}</td>
-                <td class="p-3 border-r border-gray-200 text-left text-xs leading-normal">${row.venue}</td>
-                <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.approved}</td>
-                <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.remark}</td>
-                <td class="p-3 border-r border-gray-200 text-center">
-                    <button class="bg-[#00bcd4] hover:bg-[#00acc1] text-white p-1.5 rounded transition shadow-sm cursor-pointer"><i class="fa-solid fa-eye text-xs px-1"></i></button>
-                </td>
-                <td class="p-3 border-r border-gray-200 text-center">${row.by}</td>
-                <td class="p-3 text-center text-red-500 font-medium hover:underline cursor-pointer">Upload</td>
             `;
             tableBody.appendChild(tr);
         });

@@ -1,14 +1,4 @@
 <?php 
-// 1. Sabse pehle session start karein
-session_start(); 
-
-// 2. Security Check: Agar user logged in nahi hai, toh use login page par bhaga do
-if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true){
-    header("location: login.php");
-    exit;
-}
-
-// 3. Baaki ka aapka page variables aur includes
 $page_title = "Schedule Equipment Operation Training - NBDIUP";
 include('includes/head.php'); 
 include('includes/sidebar.php'); 
@@ -28,7 +18,7 @@ include('includes/top-header.php');
 
     <main class="dashboard-container">
         <header>
-            <h1 class="main-title">Co-Ordinator Dashboard</h1>
+            <h1 class="main-title">Dashboard</h1>
         </header>
 
         <section class="cards-grid">
@@ -36,7 +26,8 @@ include('includes/top-header.php');
                 <div class="card-icon"><i class="fa-solid fa-school-flag"></i></div>
                 <div class="card-content">
                     <div class="card-metrics">
-                        <div><strong>2963</strong><span>Total Site Delivery</span></div>
+                        <div><strong>2963</strong><span>Total Schools</span></div>
+                        <div><strong>5926</strong><span>Smart Class</span></div>
                     </div>
                 </div>
             </div>
@@ -46,7 +37,7 @@ include('includes/top-header.php');
                 <div class="card-content">
                     <div class="single-metric">
                         <strong>5866</strong>
-                        <span>Total Site Readiness</span>
+                        <span>Total Site Readiness Received</span>
                     </div>
                 </div>
             </div>
@@ -56,7 +47,7 @@ include('includes/top-header.php');
                 <div class="card-content">
                     <div class="single-metric">
                         <strong>60</strong>
-                        <span>Total Electrification</span>
+                        <span>Total Site Readiness Pending</span>
                     </div>
                 </div>
             </div>
@@ -66,7 +57,7 @@ include('includes/top-header.php');
                 <div class="card-content">
                     <div class="single-metric">
                         <strong>5907</strong>
-                        <span>Total Installation</span>
+                        <span>Schools Ready for Equipment Installation</span>
                     </div>
                 </div>
             </div>
@@ -76,30 +67,74 @@ include('includes/top-header.php');
                 <div class="card-content">
                     <div class="single-metric">
                         <strong>0</strong>
-                        <span>Total Training</span>
+                        <span>Schools Pending for Equipment Installation</span>
                     </div>
                 </div>
             </div>
 
-           
+            <div class="card card-orange">
+                <div class="card-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                <div class="card-content">
+                    <div class="single-metric">
+                        <span>Schools where Equipment Installation is in Progress</span>
+                        <strong class="metric-shift">755</strong>
+                    </div>
+                </div>
+            </div>
 
-          
- 
- 
+            <div class="card card-pink">
+                <div class="card-icon"><i class="fa-solid fa-server"></i></div>
+                <div class="card-content">
+                    <div class="single-metric">
+                        <strong>5165</strong>
+                        <span>Schools where Equipment are Installed</span>
+                    </div>
+                </div>
+            </div>
 
-          
+            <div class="card card-pink">
+                <div class="card-icon"><i class="fa-regular fa-pen-to-square"></i></div>
+                <div class="card-content">
+                    <div class="single-metric">
+                        <strong>2960</strong>
+                        <span>Training Sessions Scheduled</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-pink">
+                <div class="card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                <div class="card-content">
+                    <div class="single-metric">
+                        <strong>2960</strong>
+                        <span>Training Sessions Organized</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-orange">
+                <div class="card-icon"><i class="fa-regular fa-clock"></i></div>
+                <div class="card-content">
+                    <div class="single-metric">
+                        <strong>0</strong>
+                        <span>Smart Class Setup Finalized</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="table-section">
-            <h2 class="table-title">  Details</h2>
+            <h2 class="table-title">System Integrator Details</h2>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
                             <th>SI Name</th>
-                            <th>Site Readiness  </th>
-                            <th>Electrification</th>
-                            <th>Instalation </th>
+                            <th>Smart Class to be Setup</th>
+                            <th>Total SmartClass Rooms</th>
+                            <th>Site Readiness Received</th>
+                            <th>Site Readiness Pending</th>
+                            <th>Site Readiness Approved</th>
                             <th>Smart Class Setup Successfully</th>
                             <th>Training Session Held</th>
                             <th>Smart Class Setup Finalized</th>
@@ -109,7 +144,9 @@ include('includes/top-header.php');
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="text-left font-medium">HELLO WORLD</td>
+                            <td class="text-left font-medium">MIRC Pvt. Ltd.</td>
+                            <td>2963</td>
+                            <td>5926</td>
                             <td>5911</td>
                             <td>15</td>
                             <td>5907</td>
@@ -129,15 +166,14 @@ include('includes/top-header.php');
                             <td>5165</td>
                             <td>27</td>
                             <td>0</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
-
-
-
 
 </body>
 </html>

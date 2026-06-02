@@ -1,14 +1,4 @@
 <?php 
-// 1. Sabse pehle session start karein
-session_start(); 
-
-// 2. Security Check: Agar user logged in nahi hai, toh use login page par bhaga do
-if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true){
-    header("location: login.php");
-    exit;
-}
-
-// 3. Baaki ka aapka page variables aur includes
 $page_title = "Schedule Equipment Operation Training - NBDIUP";
 include('includes/head.php'); 
 include('includes/sidebar.php'); 
@@ -28,7 +18,7 @@ include('includes/top-header.php');
 
     <main class="dashboard-container">
         <header>
-            <h1 class="main-title">Co-Ordinator Dashboard</h1>
+            <h1 class="main-title">Vendor Dashboard</h1>
         </header>
 
         <section class="cards-grid">
@@ -36,7 +26,7 @@ include('includes/top-header.php');
                 <div class="card-icon"><i class="fa-solid fa-school-flag"></i></div>
                 <div class="card-content">
                     <div class="card-metrics">
-                        <div><strong>2963</strong><span>Total Site Delivery</span></div>
+                        <div><strong>2963</strong><span>Total School</span></div>
                     </div>
                 </div>
             </div>
@@ -46,7 +36,7 @@ include('includes/top-header.php');
                 <div class="card-content">
                     <div class="single-metric">
                         <strong>5866</strong>
-                        <span>Total Site Readiness</span>
+                        <span>Total Today</span>
                     </div>
                 </div>
             </div>
@@ -56,7 +46,7 @@ include('includes/top-header.php');
                 <div class="card-content">
                     <div class="single-metric">
                         <strong>60</strong>
-                        <span>Total Electrification</span>
+                        <span>Total Yesterday</span>
                     </div>
                 </div>
             </div>
@@ -71,21 +61,6 @@ include('includes/top-header.php');
                 </div>
             </div>
 
-            <div class="card card-blue">
-                <div class="card-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
-                <div class="card-content">
-                    <div class="single-metric">
-                        <strong>0</strong>
-                        <span>Total Training</span>
-                    </div>
-                </div>
-            </div>
-
-           
-
-          
- 
- 
 
           
         </section>
@@ -137,7 +112,7 @@ include('includes/top-header.php');
     </main>
 
 
-
+    
 
 </body>
 </html>

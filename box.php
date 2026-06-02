@@ -12,7 +12,7 @@ include('includes/top-header.php');
     <!-- Tab Name Header -->
     <div class="flex items-center">
         <div class="bg-white px-6 py-3 font-semibold text-gray-800 border-t-4 border-orange-500 rounded-t-lg text-sm z-10 shadow-sm">
-            Schedule Equipment Operation Training
+            Box
         </div>
         <div class="flex-1 bg-gray-50 py-5 border-b border-gray-200"></div>
     </div>
@@ -23,9 +23,9 @@ include('includes/top-header.php');
             <div class="text-sm font-medium">
                 <span class="text-orange-500 hover:underline cursor-pointer">Dashboard</span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-orange-500 hover:underline cursor-pointer">Transactions</span>
+                <span class="text-orange-500 hover:underline cursor-pointer uppercase"><?php echo isset($_SESSION['project']) ? str_replace('_', ' ', $_SESSION['project']) : 'HELLO WORLD'; ?></span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-gray-600">Schedule Electrification Operation Training</span>
+                <span class="text-gray-600">Box Data</span>
             </div>
             
             <div class="flex items-center gap-2 self-end md:self-auto">
@@ -34,7 +34,7 @@ include('includes/top-header.php');
                     <i class="fa-solid fa-caret-down text-[10px]"></i>
                 </button>
                 <button id="openDrawerBtn" class="bg-[#0056b3] hover:bg-[#004085] text-white px-4 py-1.5 rounded text-sm font-medium flex items-center gap-1.5 transition shadow cursor-pointer">
-                    <i class="fa-solid fa-plus text-xs"></i> Schedule
+                    <i class="fa-solid fa-plus text-xs"></i> Update
                 </button>
             </div>
         </div>
@@ -70,11 +70,6 @@ include('includes/top-header.php');
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="5">File Relevant</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="6">Training Date</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="7">Comment</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 260px;" data-column="8">Training Venue</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="9">Approved UPLC</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="10">Remark UPLC</th>
-                        <th class="p-3 border-r border-gray-300 text-center" style="width: 120px;">Uploaded Photos</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="12">Uploaded By</th>
                         <th class="p-3 text-center text-[#b45309]" style="width: 90px;">Action</th>
                     </tr>
                 </thead>
@@ -329,14 +324,8 @@ document.getElementById('boxForm').addEventListener('submit', function(e) {
                 <td class="p-3 border-r border-gray-200 text-center">${row.scheduled}</td>
                 <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.file}</td>
                 <td class="p-3 border-r border-gray-200 text-center">${row.date}</td>
-                <td class="p-3 border-r border-gray-200 text-center font-medium">${row.comment}</td>
-                <td class="p-3 border-r border-gray-200 text-left text-xs leading-normal">${row.venue}</td>
-                <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.approved}</td>
-                <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.remark}</td>
-                <td class="p-3 border-r border-gray-200 text-center">
-                    <button class="bg-[#00bcd4] hover:bg-[#00acc1] text-white p-1.5 rounded transition shadow-sm cursor-pointer"><i class="fa-solid fa-eye text-xs px-1"></i></button>
-                </td>
-                <td class="p-3 border-r border-gray-200 text-center">${row.by}</td>
+                <td class="p-3 border-r border-gray-200 text-center font-medium">${row.comment}</td> 
+                 
                 <td class="p-3 text-center text-red-500 font-medium hover:underline cursor-pointer">Upload</td>
             `;
             tableBody.appendChild(tr);

@@ -12,7 +12,7 @@ include('includes/top-header.php');
     <!-- Tab Name Header -->
     <div class="flex items-center">
         <div class="bg-white px-6 py-3 font-semibold text-gray-800 border-t-4 border-orange-500 rounded-t-lg text-sm z-10 shadow-sm">
-            Electrification Data
+            Schedule Equipment Operation Training
         </div>
         <div class="flex-1 bg-gray-50 py-5 border-b border-gray-200"></div>
     </div>
@@ -23,9 +23,9 @@ include('includes/top-header.php');
             <div class="text-sm font-medium">
                 <span class="text-orange-500 hover:underline cursor-pointer">Dashboard</span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-orange-500 hover:underline cursor-pointer">  <?php echo isset($_SESSION['user_type']) ? ucfirst($_SESSION['user_type']) : 'Coordinator'; ?> </span>
+                <span class="text-orange-500 hover:underline cursor-pointer">Transactions</span>
                 <i class="fa-solid fa-caret-right mx-2 text-gray-400 text-xs"></i>
-                <span class="text-gray-600">  Electrification Data</span>
+                <span class="text-gray-600">Schedule Electrification Operation Training</span>
             </div>
             
             <div class="flex items-center gap-2 self-end md:self-auto">
@@ -34,7 +34,7 @@ include('includes/top-header.php');
                     <i class="fa-solid fa-caret-down text-[10px]"></i>
                 </button>
                 <button id="openDrawerBtn" class="bg-[#0056b3] hover:bg-[#004085] text-white px-4 py-1.5 rounded text-sm font-medium flex items-center gap-1.5 transition shadow cursor-pointer">
-                    <i class="fa-solid fa-plus text-xs"></i> Action
+                    <i class="fa-solid fa-plus text-xs"></i> Schedule
                 </button>
             </div>
         </div>
@@ -66,10 +66,15 @@ include('includes/top-header.php');
                         <th class="p-3 border-r border-gray-300 cursor-pointer" style="width: 250px;" data-column="1">School Name</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="2">District Name</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 140px;" data-column="3">Class Rooms</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 150px;" data-column="4">Calling Date</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 150px;" data-column="4">Training Scheduled On</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="5">File Relevant</th>
-                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="6"> Date</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="6">Training Date</th>
                         <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 120px;" data-column="7">Comment</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 260px;" data-column="8">Training Venue</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="9">Approved UPLC</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="10">Remark UPLC</th>
+                        <th class="p-3 border-r border-gray-300 text-center" style="width: 120px;">Uploaded Photos</th>
+                        <th class="p-3 border-r border-gray-300 text-center cursor-pointer" style="width: 110px;" data-column="12">Uploaded By</th>
                         <th class="p-3 text-center text-[#b45309]" style="width: 90px;">Action</th>
                     </tr>
                 </thead>
@@ -90,15 +95,15 @@ include('includes/top-header.php');
 <!-- ================= BACKGROUND DARK OVERLAY ================= -->
 <div id="drawerOverlay" class="fixed inset-0 bg-black/40 hidden z-40 transition-opacity duration-300 opacity-0"></div>
 
- <div id="sideDrawer" class="fixed top-0 right-0 h-full w-full max-w-[550px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+<div id="sideDrawer" class="fixed top-0 right-0 h-full w-full max-w-[550px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
     <div class="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-gray-200">
-        <h2 class="text-[#1e3e62] font-semibold text-lg">School Electrification Status</h2>
+        <h2 class="text-[#1e3e62] font-semibold text-lg">Box Number & Inventory Tracking</h2>
         <button id="closeDrawerBtn" class="text-gray-400 hover:text-gray-600 text-xl font-medium focus:outline-none cursor-pointer">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
     
-    <form id="electrificationForm" enctype="multipart/form-data" class="flex-1 overflow-y-auto p-6 space-y-4 text-sm text-gray-700">
+    <form id="boxForm" enctype="multipart/form-data" class="flex-1 overflow-y-auto p-6 space-y-4 text-sm text-gray-700">
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -114,31 +119,42 @@ include('includes/top-header.php');
             </div>
         </div>
 
-        <div>
-            <label class="block font-medium mb-1">Electrification Status <span class="text-red-500">*</span></label>
-            <div class="space-y-2 mt-2">
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Pending Vendor Side" required class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">As per HM confirmation Electrification Pending Vendor Side</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Completed As per HM" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">Electrification Completed As per HM</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Incomplete Electrification" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">Incomplete Electrification</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="Electrification Pending" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">Electrification Pending</span>
-                </label>
-                <label class="flex items-start cursor-pointer">
-                    <input type="radio" name="electrification_status" value="HM Confirmation Pending" class="mt-1 text-[#004e92] focus:ring-[#004e92]">
-                    <span class="ml-2">HM Confirmation Pending</span>
-                </label>
+        <hr class="border-gray-100">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="block font-medium mb-1">IFP Box Number <span class="text-red-500">*</span></label>
+                <input type="text" id="ifpBoxNo" name="ifp_box_no" required class="box-input w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400" data-type="IFP" placeholder="e.g. B-101">
+            </div>
+            <div>
+                <label class="block font-medium mb-1 text-gray-500">IFP BoxCode / ID</label>
+                <input type="text" id="ifpBoxCode" name="ifp_box_code" readonly class="w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-600 font-mono focus:outline-none" placeholder="Auto fetched...">
             </div>
         </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="block font-medium mb-1">UPS Box Number <span class="text-red-500">*</span></label>
+                <input type="text" id="upsBoxNo" name="ups_box_no" required class="box-input w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400" data-type="UPS" placeholder="e.g. U-201">
+            </div>
+            <div>
+                <label class="block font-medium mb-1 text-gray-500">UPS BoxCode / ID</label>
+                <input type="text" id="upsBoxCode" name="ups_box_code" readonly class="w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-600 font-mono focus:outline-none" placeholder="Auto fetched...">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="block font-medium mb-1">Accessories Box Number <span class="text-red-500">*</span></label>
+                <input type="text" id="accBoxNo" name="accessories_box_no" required class="box-input w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400" data-type="ACCESSORIES" placeholder="e.g. A-301">
+            </div>
+            <div>
+                <label class="block font-medium mb-1 text-gray-500">Accessories BoxCode / ID</label>
+                <input type="text" id="accBoxCode" name="accessories_box_code" readonly class="w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-600 font-mono focus:outline-none" placeholder="Auto fetched...">
+            </div>
+        </div>
+
+        <hr class="border-gray-100">
 
         <div>
             <label class="block font-medium mb-1">Upload Relevant File</label>
@@ -151,8 +167,8 @@ include('includes/top-header.php');
         </div>
 
         <div>
-            <label class="block font-medium mb-1">Remark <span class="text-red-500">*</span></label>
-            <textarea name="remark" rows="3" required class="w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400 resize-none" placeholder="Enter your remarks here..."></textarea>
+            <label class="block font-medium mb-1">Remarks <span class="text-red-500">*</span></label>
+            <textarea name="remarks" rows="3" required class="w-full border border-blue-100 bg-[#f4f9fd] rounded px-3 py-2 focus:outline-none focus:border-blue-400 resize-none" placeholder="Enter your remarks here..."></textarea>
         </div>
 
         <div class="pt-4">
@@ -162,19 +178,16 @@ include('includes/top-header.php');
 </div>
 
 <script>
-// 1. API से UDISE Code के आधार पर Live School Name खोजना
+// 1. UDISE Code से स्कूल का नाम खोजना
 document.getElementById('udiseCode').addEventListener('input', function() {
     const code = this.value.trim();
     const label = document.getElementById('schoolNameLabel');
     const hiddenInput = document.getElementById('schoolNameHidden');
     
-    // जब UDISE Code की लंबाई 8 या उससे अधिक हो, तभी API कॉल करें (सर्वर लोड कम करने के लिए)
     if(code.length >= 8) {
         label.textContent = "Searching...";
-        label.className = "w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-blue-500 min-h-[38px] flex items-center";
-
-        fetch(`electrification_api.php?action=search_udise&udise_code=${code}`)
-        .then(response => response.json())
+        fetch(`box_api.php?action=search_udise&udise_code=${code}`)
+        .then(res => res.json())
         .then(data => {
             if(data.status === 'success') {
                 label.textContent = data.school_name;
@@ -185,10 +198,6 @@ document.getElementById('udiseCode').addEventListener('input', function() {
                 label.className = "w-full bg-red-50 border border-red-200 rounded px-3 py-2 text-red-600 min-h-[38px] flex items-center";
                 hiddenInput.value = "";
             }
-        })
-        .catch(err => {
-            label.textContent = "Error fetching data";
-            label.className = "w-full bg-red-50 border border-red-200 rounded px-3 py-2 text-red-600 min-h-[38px] flex items-center";
         });
     } else {
         label.textContent = "-- Enter UDISE Code --";
@@ -197,33 +206,72 @@ document.getElementById('udiseCode').addEventListener('input', function() {
     }
 });
 
-// 2. File Input का नाम अपडेट करने के लिए
-document.getElementById('fileInput').addEventListener('change', function() {
-    const name = this.files[0] ? this.files[0].name : "No file chosen";
-    document.getElementById('fileName').textContent = name;
+// 2. Multi-Field Auto Fetch Logic (IFP, UPS, Accessories के लिए कॉमन कोड)
+document.querySelectorAll('.box-input').forEach(inputField => {
+    inputField.addEventListener('blur', function() { // Input से बाहर (Focus out) क्लिक करते ही API हिट होगी
+        const boxNumber = this.value.trim();
+        const boxType = this.getAttribute('data-type');
+        const targetOutputField = this.closest('.grid').querySelector('input[readonly]');
+        
+        if (boxNumber === "") {
+            targetOutputField.value = "";
+            return;
+        }
+
+        targetOutputField.value = "Fetching ID...";
+
+        // API से Box Code प्राप्त करना
+        fetch(`box_api.php?action=get_box_code&box_type=${boxType}&box_number=${encodeURIComponent(boxNumber)}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                targetOutputField.value = data.box_code;
+            } else {
+                targetOutputField.value = "Not Found / Invalid";
+            }
+        })
+        .catch(() => {
+            targetOutputField.value = "Error fetching";
+        });
+    });
 });
 
-// 3. Form Submit करके Data Save करना
-document.getElementById('electrificationForm').addEventListener('submit', function(e) {
+// File input custom name update
+document.getElementById('fileInput').addEventListener('change', function() {
+    document.getElementById('fileName').textContent = this.files[0] ? this.files[0].name : "No file chosen";
+});
+
+// 3. Form Submit Logic
+document.getElementById('boxForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     if(!document.getElementById('schoolNameHidden').value) {
-        alert("Please enter a valid and matching UDISE Code first.");
+        alert("Please enter a valid UDISE Code first.");
+        return;
+    }
+
+    // सुनिश्चित करें कि कोई इनवैलिड Box ID न सबमिट हो रही हो
+    const ifpId = document.getElementById('ifpBoxCode').value;
+    const upsId = document.getElementById('upsBoxCode').value;
+    const accId = document.getElementById('accBoxCode').value;
+
+    if(ifpId.includes("Not Found") || upsId.includes("Not Found") || accId.includes("Not Found") || !ifpId || !upsId || !accId) {
+        alert("Please ensure all Box Numbers are valid and their IDs are auto-fetched successfully.");
         return;
     }
 
     const formData = new FormData(this);
-    formData.append('action', 'save_data');
+    formData.append('action', 'save_box_data');
 
-    fetch('electrification_api.php', {
+    fetch('box_api.php', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
         if(data.status === 'success') {
-            alert('Electrification status saved successfully!');
-            document.getElementById('electrificationForm').reset();
+            alert('Box records saved successfully!');
+            document.getElementById('boxForm').reset();
             document.getElementById('schoolNameLabel').textContent = "-- Enter UDISE Code --";
             document.getElementById('schoolNameLabel').className = "w-full bg-gray-100 border border-gray-200 rounded px-3 py-2 text-gray-500 min-h-[38px] flex items-center";
             document.getElementById('fileName').textContent = "No file chosen";
@@ -231,12 +279,11 @@ document.getElementById('electrificationForm').addEventListener('submit', functi
             alert('Error: ' + data.message);
         }
     })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Something went wrong while saving.');
-    });
+    .catch(err => alert('Submission Error!'));
 });
 </script>
+
+ 
 
 <!-- ================= INTERACTIVE PAGE LOGIC SCRIPT ================= -->
 <script>
@@ -283,6 +330,14 @@ document.getElementById('electrificationForm').addEventListener('submit', functi
                 <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.file}</td>
                 <td class="p-3 border-r border-gray-200 text-center">${row.date}</td>
                 <td class="p-3 border-r border-gray-200 text-center font-medium">${row.comment}</td>
+                <td class="p-3 border-r border-gray-200 text-left text-xs leading-normal">${row.venue}</td>
+                <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.approved}</td>
+                <td class="p-3 border-r border-gray-200 text-center text-gray-500">${row.remark}</td>
+                <td class="p-3 border-r border-gray-200 text-center">
+                    <button class="bg-[#00bcd4] hover:bg-[#00acc1] text-white p-1.5 rounded transition shadow-sm cursor-pointer"><i class="fa-solid fa-eye text-xs px-1"></i></button>
+                </td>
+                <td class="p-3 border-r border-gray-200 text-center">${row.by}</td>
+                <td class="p-3 text-center text-red-500 font-medium hover:underline cursor-pointer">Upload</td>
             `;
             tableBody.appendChild(tr);
         });

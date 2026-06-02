@@ -1,0 +1,186 @@
+
+
+.dashboard-container {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.main-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+}
+
+/* 5-Column Grid Layout for KPI Cards */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* Individual Card Styling */
+.card {
+    background: #ffffff;
+    border: 1px dashed #b5b5b5;
+    border-radius: 6px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+    min-height: 100px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Subtle corner gradient decorations mimicking the original layout */
+.card::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Icon Containers */
+.card-icon {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 4px;
+}
+
+.card-content {
+    flex: 1;
+}
+
+/* Combined Metrics Style (Card 1) */
+.card-metrics {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-metrics div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Single Metric Layout styles */
+.single-metric {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-metric strong, .card-metrics strong {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.single-metric span, .card-metrics span {
+    font-size: 0.78rem;
+    color: #666;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+/* Fix layout ordering for Card 6 specifically */
+.single-metric .metric-shift {
+    order: -1;
+}
+
+/* Theme Schemes Based on Borders/Icons */
+.card-blue .card-icon { color: #0066cc; }
+.card-blue strong { color: #0044aa; }
+.card-blue::after { background: radial-gradient(circle, #0066cc 0%, transparent 70%); }
+
+.card-green .card-icon { color: #4caf50; }
+.card-green strong { color: #1e5a22; }
+.card-green::after { background: radial-gradient(circle, #4caf50 0%, transparent 70%); }
+
+.card-orange .card-icon { color: #ff9800; }
+.card-orange strong { color: #b36b00; }
+.card-orange::after { background: radial-gradient(circle, #ff9800 0%, transparent 70%); }
+
+.card-pink .card-icon { color: #e91e63; }
+.card-pink strong { color: #880e4f; }
+.card-pink::after { background: radial-gradient(circle, #e91e63 0%, transparent 70%); }
+
+
+/* Table Container Style */
+.table-section {
+    background-color: #fbf4e9; /* Light beige banner tint */
+    border: 1px solid #e1d3be;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.table-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    padding: 12px 15px;
+    margin: 0;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    background-color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+th {
+    background-color: #f2e8da;
+    color: #555;
+    font-weight: 600;
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    font-size: 0.82rem;
+}
+
+td {
+    padding: 10px 8px;
+    border: 1px solid #e0e0e0;
+    color: #444;
+}
+
+/* Row-specific treatments */
+.row-total {
+    background-color: #fafafa;
+}
+
+/* Utility Helper Classes */
+.text-left { text-align: left; padding-left: 15px; }
+.font-medium { font-weight: 500; }
+.font-bold { font-weight: 700; }
+.text-danger { color: #d9534f; }
+
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+    .cards-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr; }
+}

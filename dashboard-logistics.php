@@ -28,7 +28,7 @@ include('includes/top-header.php');
 
     <main class="dashboard-container">
         <header>
-            <h1 class="main-title">Co-Ordinator Dashboard</h1>
+            <h1 class="main-title">  <?php echo isset($_SESSION['user_type']) ? ucfirst($_SESSION['user_type']) : 'Coordinator'; ?>   Dashboard</h1>
         </header>
 
         <section class="cards-grid">
