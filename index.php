@@ -22,10 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
     $username  = isset($_POST['userId']) ? trim($_POST['userId']) : '';
     $password  = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-    // Validation
-    if(empty($user_type) || empty($project) || empty($username) || empty($password)){
-        $error_message = "All fields (including Dropdowns) are required!";
+    if(empty($user_type) || empty($username) || empty($password)){
+        $error_message = "User Type, User ID and Password are required!";
     }
+    elseif($user_type != 'super_admin' && empty($project)){
+        $error_message = "Project is required!";
+    }
+    
     // Username aur Password check
     elseif ($username === $fixed_username && $password === $fixed_password) {
 
@@ -434,30 +437,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
 
     <form action="" method="POST">
 
-        <div class="form-group">
-            <label for="user-type">User Type</label>
-            <select id="user-type" name="userType">
-                <option value="">--Select--</option>
-                <option value="super_admin">Super Administrator</option>
-                <option value="administrator">Administrator</option>
-                <option value="coordinator">Co-Ordinator/Back Office</option>
-                <option value="logistics">Logistics</option>
-                <option value="vendor_1">Vendor-Type1</option>
-                <option value="vendor_2">Vendor-Type2</option>
-                <option value="vendor_3">Vendor-Type3</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label Solr="project">Project</label>
-            <select id="project" name="project">
-                <option value="">--Select--</option>
-                <option value="hello_world">Hello World</option>
-                <option value="mirc">MIRC</option>
-                <option value="cylkon">Cylkon</option>
-            </select>
-        </div>
-        
+    <div class="form-group" id="user-group">
+        <select id="user-type" name="userType">
+            <option value="">--Select--</option>
+            <option value="super_admin">Super Administrator</option>
+            <option value="administrator">Administrator</option>
+            <option value="coordinator">Co-Ordinator/Back Office</option>
+            <option value="logistics">Logistics</option>
+        </select>
+    </div>
+
+
+<div class="form-group" id="project-group">
+    <label for="project">Project</label>
+    <select id="project" name="project">
+        <option value="">--Select--</option>
+        <option value="hello_world">Hello World</option>
+        <option value="mirc">MIRC</option>
+        <option value="cylkon">Cylkon</option>
+    </select>
+</div>
         <div class="form-group">
             <label for="user-id">User ID</label>
             <input type="text" id="user-id" name="userId" placeholder="Enter demo_user">
@@ -490,6 +489,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
         </div>
         <div>Powered by <a href="#" style="color:#333; font-weight:bold; text-decoration:underline;">LAP</a></div>
     </footer>
+
+    <script>
+document.getElementById('user-type').addEventListener('change', function () {
+    let projectGroup = document.getElementById('project-group');
+
+    if (this.value === 'super_admin') {
+        projectGroup.style.display = 'none';
+        document.getElementById('project').value = '';
+    } else {
+        projectGroup.style.display = 'block';
+    }
+});
+</script>
 
 </body>
 </html>

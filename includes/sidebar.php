@@ -24,11 +24,45 @@
         
         // 1. COMMON MENU: Instructions (Sabhi Roles ko dikhega)
         ?>
+
         <li class="rounded hover:bg-slate-700/40">
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5">
-                <i class="fa-solid fa-circle-info w-5"></i> <span>INSTRUCTIONS</span>
+            <a href="project.php" class="flex items-center gap-3 px-3 py-2.5">
+                <i class="fa-solid fa-circle-info w-5"></i> <span>Project</span>
             </a>
         </li>
+
+        <li class="rounded hover:bg-slate-700/40">
+            <a href="coordinator.php" class="flex items-center gap-3 px-3 py-2.5">
+                <i class="fa-solid fa-circle-info w-5"></i> <span>Coordinator</span>
+            </a>
+        </li>
+
+         <li class="rounded hover:bg-slate-700/40">
+            <a href="employee.php" class="flex items-center gap-3 px-3 py-2.5">
+                <i class="fa-solid fa-circle-info w-5"></i> <span>Employee</span>
+            </a>
+        </li>
+
+        <li class="rounded hover:bg-slate-700/40">
+            <a href="school_master_data.php" class="flex items-center gap-3 px-3 py-2.5">
+                <i class="fa-solid fa-circle-info w-5"></i> <span>School Master Data</span>
+            </a>
+        </li>
+
+        
+
+        <li class="rounded hover:bg-slate-700/40">
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5">
+                <i class="fa-solid fa-circle-info w-5"></i> <span>Project Execution</span>
+            </a>
+        </li>
+
+        <li class="rounded hover:bg-slate-700/40">
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5">
+                <i class="fa-solid fa-circle-info w-5"></i> <span>Coordinator Wise Total</span>
+            </a>
+        </li>
+
 
         <?php 
         // 2. DYNAMIC DASHBOARD LINK: Role ke hisab se sahi page par bhejega
@@ -69,6 +103,14 @@
                 </a>
             </li>
         <?php elseif (strpos($user_role, 'vendor') !== false): ?>
+
+              <li class="rounded hover:bg-slate-700/40">
+                <a href="vendor-delivery.php" class="flex items-center gap-3 px-3 py-2.5">
+                    <i class="fa-solid fa-chart-simple w-5"></i> <span>Delivery Status</span>
+                </a>
+            </li>
+
+
             <li class="rounded hover:bg-slate-700/40">
                 <a href="vendor-ins.php" class="flex items-center gap-3 px-3 py-2.5">
                     <i class="fa-solid fa-chart-simple w-5"></i> <span>Instalation Status</span>

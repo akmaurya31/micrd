@@ -1,5 +1,5 @@
 <?php 
-session_start(); 
+// session_start(); 
         $user_role = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : '';
         $project='';
 
